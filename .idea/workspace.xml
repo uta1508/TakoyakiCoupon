@@ -5,9 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="15b2a4cd-0417-4e69-bd6e-ee2c37bd031a" name="変更" comment="">
-      <change beforePath="$PROJECT_DIR$/add_student_no.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/fix_cascade.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/fix_profiles_cascade.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -106,7 +104,7 @@
       <updated>1786102759954</updated>
       <workItem from="1786102763169" duration="502000" />
       <workItem from="1789275821383" duration="4000" />
-      <workItem from="1789275837879" duration="5430000" />
+      <workItem from="1789275837879" duration="5987000" />
     </task>
     <servers />
   </component>
