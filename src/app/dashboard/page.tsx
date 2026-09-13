@@ -48,8 +48,9 @@ export default function DashboardPage() {
 
   const shareViaLine = (id: string, amount: number) => {
     const url = getCouponUrl(id);
-    const text = encodeURIComponent(`文化祭の${amount}円引きクーポンだよ！ぜひお店に来てね！\n${url}`);
-    window.open(`https://line.me/R/msg/text/?${text}`, "_blank");
+    const text = `文化祭の${amount}円引きクーポンだよ！ぜひお店に来てね！\n${url}`;
+    const encodedText = encodeURIComponent(text);
+    window.open(`https://line.me/R/share?text=${encodedText}`, "_blank");
   };
 
   const copyToClipboard = (id: string) => {
