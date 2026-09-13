@@ -31,7 +31,7 @@ export default function AdminPage() {
       }
 
       const [profilesRes, couponsRes] = await Promise.all([
-        supabase.from("profiles").select("*").eq("role", "classmate").order("name"),
+        supabase.from("profiles").select("*").eq("role", "classmate").order("student_no", { ascending: true }),
         supabase.from("coupons").select("*").order("created_at", { ascending: false })
       ]);
 
@@ -100,6 +100,47 @@ export default function AdminPage() {
       alert("一斉発行に失敗しました。");
     }
     setIsBulkIssuing(false);
+  };
+
+  const addUser = async () => {
+    const name = prompt("追加する生徒の名前を入力してください");
+    if (!name) return;
+    const initials = prompt("ローマ字のイニシャルを入力してください（例: ak）");
+    if (!initials) return;
+    const student_no = prompt("出席番号を入力してください（例: 41）");
+    if (!student_no) return;
+
+    const res = await fetch("/api/admin/users", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ name, initials, student_no: Number(student_no) })
+    });
+
+    if (res.ok) {
+      const data = await res.json();
+      alert(`アカウントを作成しました！\nユーザーID: ${data.userId}\nパスワード: ${data.password}`);
+      window.location.reload();
+    } else {
+      alert("作成に失敗しました。環境変数に SUPABASE_SERVICE_ROLE_KEY が設定されているか確認してください。");
+    }
+  };
+
+  const deleteUser = async (userId: string, name: string) => {
+    if (!confirm(`本当に ${name} さんのアカウントを完全に削除しますか？\n（※元には戻せません）`)) return;
+    
+    const res = await fetch("/api/admin/users", {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id: userId })
+    });
+    
+    if (res.ok) {
+      setProfiles(prev => prev.filter(p => p.id !== userId));
+      setExpandedUserId(null);
+    } else {
+      const errorData = await res.json().catch(() => ({ error: '不明なエラー' }));
+      alert(`削除に失敗しました。\n理由: ${errorData.error}`);
+    }
   };
 
   const toggleExpand = (userId: string) => {
@@ -182,6 +223,14 @@ export default function AdminPage() {
               </div>
             </div>
             <button 
+              onClick={addUser}
+              className="flex items-center gap-2 bg-slate-900 text-white px-4 py-2 rounded-lg text-sm font-bold shadow-sm hover:bg-slate-800 transition-colors"
+            >
+              <Plus className="w-4 h-4" />
+              <span className="hidden md:inline">アカウント追加</span>
+              <span className="md:hidden">追加</span>
+            </button>
+            <button 
               onClick={bulkIssueCoupons}
               disabled={isBulkIssuing || profiles.length === 0}
               className="flex items-center gap-2 bg-indigo-600 text-white px-4 py-2 rounded-lg text-sm font-bold shadow-sm hover:bg-indigo-700 transition-colors disabled:opacity-50"
@@ -202,6 +251,7 @@ export default function AdminPage() {
             <table className="w-full text-left border-collapse min-w-[600px]">
               <thead>
                 <tr className="bg-white border-b border-slate-100">
+                  <th className="p-4 font-bold text-slate-500 text-sm w-16">番号</th>
                   <th className="p-4 font-bold text-slate-500 text-sm">名前</th>
                   <th className="p-4 font-bold text-slate-500 text-sm">発行数</th>
                   <th className="p-4 font-bold text-slate-500 text-sm">使用済</th>
@@ -219,6 +269,7 @@ export default function AdminPage() {
                   return (
                     <React.Fragment key={profile.id}>
                       <tr className="border-b border-slate-50 hover:bg-slate-50/50 transition-colors">
+                        <td className="p-4 font-bold text-slate-400">{profile.student_no || "-"}</td>
                         <td className="p-4 font-bold text-slate-800">{profile.name}</td>
                         <td className="p-4 font-medium text-slate-600">{userCoupons.length} 枚</td>
                         <td className="p-4 font-bold text-emerald-500">{userUsed} 枚</td>
@@ -316,6 +367,16 @@ export default function AdminPage() {
                                 )}
                               </div>
                               
+                              {/* アカウント削除エリア */}
+                              <div className="flex justify-end pt-4 border-t border-slate-200 mt-2">
+                                <button 
+                                  onClick={() => deleteUser(profile.id, profile.name)}
+                                  className="text-sm font-bold text-red-500 hover:bg-red-50 px-4 py-2 rounded-lg transition-colors"
+                                >
+                                  このアカウントを削除する
+                                </button>
+                              </div>
+
                             </div>
                           </td>
                         </tr>

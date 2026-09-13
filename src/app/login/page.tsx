@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { Loader2 } from "lucide-react";
 
 export default function LoginPage() {
-  const [email, setEmail] = useState("");
+  const [userId, setUserId] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -16,13 +16,17 @@ export default function LoginPage() {
     e.preventDefault();
     setLoading(true);
     setError(null);
+    
+    // 裏側でダミーのメールドメインを結合
+    const email = `${userId.toLowerCase()}@takoyaki.local`;
+    
     const { error: signInError } = await supabase.auth.signInWithPassword({
       email,
       password,
     });
     
     if (signInError) {
-      setError("ログインに失敗しました。メールアドレスとパスワードを確認してください。");
+      setError("ログインに失敗しました。ユーザーIDとパスワードを確認してください。");
       setLoading(false);
       return;
     }
@@ -45,12 +49,13 @@ export default function LoginPage() {
         {error && <div className="mb-4 text-sm text-red-500 bg-red-50 p-3 rounded-lg">{error}</div>}
         <form onSubmit={handleLogin} className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">メールアドレス</label>
+            <label className="block text-sm font-medium text-slate-700 mb-1">ユーザーID</label>
             <input 
-              type="email" 
+              type="text" 
               required
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              value={userId}
+              onChange={(e) => setUserId(e.target.value)}
+              placeholder="例: ak01"
               className="w-full border border-slate-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-slate-900 transition-shadow"
             />
           </div>
@@ -61,6 +66,7 @@ export default function LoginPage() {
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              placeholder="6桁の数字"
               className="w-full border border-slate-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-slate-900 transition-shadow"
             />
           </div>
