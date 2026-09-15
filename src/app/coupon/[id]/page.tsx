@@ -211,42 +211,38 @@ function SwipeToUse({ onComplete }: { onComplete: () => void }) {
   const knobWidth = 64;
   const maxDrag = containerWidth - knobWidth - 8; // 8px padding
   
-  // 画面が180度回転しているため、店員にとっての「左から右」は、スマホ物理画面の「右から左」になります。
-  // そのため初期位置を右端(justify-end)にし、X座標のマイナス方向へスワイプさせます。
   const x = useMotionValue(0);
-  const opacity = useTransform(x, [0, -maxDrag * 0.5], [1, 0]);
-  const bgProgress = useTransform(x, [0, -maxDrag], ["#1e293b", "#10b981"]);
+  const opacity = useTransform(x, [0, maxDrag * 0.5], [1, 0]);
+  const bgProgress = useTransform(x, [0, maxDrag], ["#1e293b", "#10b981"]);
 
   const handleDragEnd = () => {
-    // 80%以上左（マイナス方向）にスワイプされたら完了
-    if (x.get() <= -maxDrag * 0.8) {
+    if (x.get() >= maxDrag * 0.8) {
       onComplete();
     }
   };
 
   return (
-    <div className="relative h-[72px] rounded-[36px] p-1 overflow-hidden border border-slate-700/50 flex justify-end" style={{ width: containerWidth }}>
+    <div className="relative h-[72px] rounded-[36px] p-1 overflow-hidden border border-slate-700/50" style={{ width: containerWidth }}>
       <motion.div 
         className="absolute inset-0 w-full h-full"
         style={{ backgroundColor: bgProgress }}
       />
       <motion.div 
-        className="absolute inset-0 flex items-center justify-center font-bold text-sm tracking-widest text-slate-300 z-10 pointer-events-none pr-6"
+        className="absolute inset-0 flex items-center justify-center font-bold text-sm tracking-widest text-slate-300 z-10 pointer-events-none ml-6"
         style={{ opacity }}
       >
         右へスワイプ
       </motion.div>
       <motion.div
         drag="x"
-        dragConstraints={{ left: -maxDrag, right: 0 }}
+        dragConstraints={{ left: 0, right: maxDrag }}
         dragElastic={0.05}
         dragSnapToOrigin
         onDragEnd={handleDragEnd}
         style={{ x, width: knobWidth }}
         className="relative h-full bg-white rounded-full flex items-center justify-center cursor-grab active:cursor-grabbing z-20 shadow-md"
       >
-        {/* 物理的には左向き矢印ですが、180度回転により店員には右向きに見えます */}
-        <ChevronLeft className="text-slate-900 w-6 h-6" />
+        <ChevronRight className="text-slate-900 w-6 h-6" />
       </motion.div>
     </div>
   );
