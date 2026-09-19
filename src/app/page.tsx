@@ -18,16 +18,20 @@ export default async function Home() {
 
   return (
     <div className="bg-[#F5F5F5] text-[#111111] font-sans font-light selection:bg-[#C5A059] selection:text-white transition-colors duration-500">
-      <header className="fixed w-full top-0 z-50 transition-all duration-300 bg-white/90 backdrop-blur-md shadow-sm py-2" id="header">
-        <div className="container mx-auto px-6 flex justify-between items-center">
-          <a href="#" className="relative w-48 h-12 block">
-            <Image src="/logo.png" alt="GRAND MAISON HOSOYA" fill className="object-contain object-left" />
-          </a>
-          <nav className="hidden md:flex gap-8">
-            <a href="#concept" className="text-sm font-semibold tracking-widest text-[#111111] hover:text-[#C5A059] uppercase transition-colors">Concept</a>
-            <a href="#news" className="text-sm font-semibold tracking-widest text-[#111111] hover:text-[#C5A059] uppercase transition-colors">News</a>
-            <a href="#menu" className="text-sm font-semibold tracking-widest text-[#111111] hover:text-[#C5A059] uppercase transition-colors">Menu</a>
-            <a href="#access" className="text-sm font-semibold tracking-widest text-[#111111] hover:text-[#C5A059] uppercase transition-colors">Access</a>
+      <header className="fixed w-full top-0 z-50 transition-all duration-300 bg-white/90 backdrop-blur-md shadow-sm py-4" id="header">
+        <div className="container mx-auto px-6 flex justify-center md:grid md:grid-cols-3 items-center">
+          <nav className="hidden md:flex gap-10 justify-end pr-8">
+            <a href="#concept" className="text-base font-semibold tracking-widest text-[#111111] hover:text-[#C5A059] uppercase transition-colors">Concept</a>
+            <a href="#news" className="text-base font-semibold tracking-widest text-[#111111] hover:text-[#C5A059] uppercase transition-colors">News</a>
+          </nav>
+          <div className="flex justify-center">
+            <a href="#" className="relative w-56 h-16 md:w-72 md:h-20 block">
+              <Image src="/logo.png" alt="GRAND MAISON HOSOYA" fill className="object-contain object-center" />
+            </a>
+          </div>
+          <nav className="hidden md:flex gap-10 justify-start pl-8">
+            <a href="#menu" className="text-base font-semibold tracking-widest text-[#111111] hover:text-[#C5A059] uppercase transition-colors">Menu</a>
+            <a href="#access" className="text-base font-semibold tracking-widest text-[#111111] hover:text-[#C5A059] uppercase transition-colors">Access</a>
           </nav>
         </div>
       </header>
