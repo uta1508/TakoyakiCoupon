@@ -67,7 +67,7 @@ export default async function Home() {
                 至高の粉もん、<br/>ここに開店。
               </h2></FadeIn>
             </div>
-          </FadeIn>
+          </div>
         </div>
       </section>
 
@@ -197,7 +197,7 @@ export default async function Home() {
                 </p>
               </div>
             </div>
-          </div>
+          </FadeIn>
         </div>
       </section>
 
