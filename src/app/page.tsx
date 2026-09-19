@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { createClient } from "@supabase/supabase-js";
+import { FadeIn } from "@/components/FadeIn";
 
 // キャッシュを無効にして常に最新のニュースを取得する
 export const revalidate = 0;
@@ -51,28 +52,28 @@ export default async function Home() {
 
         <div className="relative z-10 container mx-auto px-6 h-full flex flex-col md:flex-row justify-center md:justify-between items-center pt-20">
           <div className="order-2 md:order-1 mt-12 md:mt-0 w-full md:w-1/2 flex justify-center md:justify-start lg:pl-12">
-            <div className="border-l border-[#C5A059] pl-6 py-2 text-left">
+            <FadeIn delay={0.8} className="border-l border-[#C5A059] pl-6 py-2 text-left">
               <p className="font-en font-semibold text-[#C5A059] tracking-[0.2em] text-sm mb-2">LIMITED OPEN</p>
               <p className="text-[#111111] text-lg tracking-wider font-en font-semibold">2026.09.26 <span className="text-sm mx-1">SAT</span> - 09.27 <span className="text-sm mx-1">SUN</span></p>
               <p className="text-gray-600 text-sm mt-1">09:00 - 15:00</p>
-            </div>
+            </FadeIn>
           </div>
           <div className="order-1 md:order-2 w-full md:w-1/2 flex justify-center md:justify-end md:pr-12 lg:pr-24">
             <div className="flex h-auto gap-4 lg:gap-8 justify-end">
-              <p className="font-serif text-xl lg:text-2xl text-[#C5A059] leading-loose mt-12" style={{ writingMode: 'vertical-rl', letterSpacing: '0.2em' }}>
+              <FadeIn delay={0.6}><p className="font-serif text-xl lg:text-2xl text-[#C5A059] leading-loose mt-12" style={{ writingMode: 'vertical-rl', letterSpacing: '0.2em' }}>
                 賞味期限、わずか１分。
-              </p>
-              <h2 className="font-serif text-4xl lg:text-6xl text-[#111111] leading-[2.5]" style={{ writingMode: 'vertical-rl', letterSpacing: '0.2em' }}>
+              </p></FadeIn>
+              <FadeIn delay={0.3}><h2 className="font-serif text-4xl lg:text-6xl text-[#111111] leading-[2.5]" style={{ writingMode: 'vertical-rl', letterSpacing: '0.2em' }}>
                 至高の粉もん、<br/>ここに開店。
-              </h2>
+              </h2></FadeIn>
             </div>
-          </div>
+          </FadeIn>
         </div>
       </section>
 
       <section id="concept" className="py-24 relative">
         <div className="container mx-auto px-6 max-w-4xl">
-          <div className="flex flex-col md:flex-row gap-12 items-center">
+          <FadeIn className="flex flex-col md:flex-row gap-12 items-center">
             <div className="md:w-1/3">
               <h3 className="text-[#C5A059] text-4xl lg:text-5xl tracking-widest opacity-30 font-en font-semibold">CONCEPT</h3>
               <h2 className="text-2xl lg:text-3xl mt-[-1.5rem] ml-4 lg:ml-8 text-[#111111] font-serif font-bold">洗練と、<br/>情熱のひとくち。</h2>
@@ -88,23 +89,23 @@ export default async function Home() {
                 私たちの本気を、ぜひご賞味ください。
               </p>
             </div>
-          </div>
+          </FadeIn>
         </div>
       </section>
 
       <section id="news" className="py-24 bg-white relative">
         <div className="container mx-auto px-6 max-w-4xl">
-          <div className="text-center mb-16">
+          <FadeIn className="text-center mb-16">
             <h2 className="font-en text-3xl tracking-[0.3em] text-[#111111] font-bold">NEWS</h2>
             <div className="w-12 h-px bg-[#C5A059] mx-auto mt-4"></div>
-          </div>
+          </FadeIn>
           <div className="flex flex-col gap-6">
             {newsList && newsList.length > 0 ? (
-              newsList.map((news) => {
+              newsList.map((news, idx) => {
                 const dateObj = new Date(news.created_at);
                 const dateStr = `${dateObj.getFullYear()}.${String(dateObj.getMonth() + 1).padStart(2, '0')}.${String(dateObj.getDate()).padStart(2, '0')}`;
                 return (
-                <div key={news.id} className="border-b border-gray-200 pb-6 flex flex-col md:flex-row gap-4 md:gap-8">
+                <FadeIn key={news.id} delay={0.1 * idx} className="border-b border-gray-200 pb-6 flex flex-col md:flex-row gap-4 md:gap-8">
                   <div className="text-[#C5A059] font-en font-bold shrink-0 w-32">
                     {dateStr}
                   </div>
@@ -112,7 +113,7 @@ export default async function Home() {
                     <h3 className="text-lg font-bold text-[#111111] mb-2">{news.title}</h3>
                     <p className="text-gray-600 leading-relaxed whitespace-pre-wrap">{news.content}</p>
                   </div>
-                </div>
+                </FadeIn>
                 );
               })
             ) : (
@@ -124,12 +125,12 @@ export default async function Home() {
 
       <section id="menu" className="py-24 bg-white relative">
         <div className="container mx-auto px-6 max-w-6xl">
-          <div className="text-center mb-16 lg:mb-24">
+          <FadeIn className="text-center mb-16 lg:mb-24">
             <h2 className="font-en text-3xl tracking-[0.3em] text-[#111111] font-bold">MENU</h2>
             <div className="w-12 h-px bg-[#C5A059] mx-auto mt-4"></div>
-          </div>
+          </FadeIn>
           <div className="grid md:grid-cols-2 gap-16 lg:gap-24">
-            <div className="group cursor-pointer">
+            <FadeIn delay={0.1}><div className="group cursor-pointer">
               <div className="relative aspect-[4/3] bg-gray-100 mb-6 overflow-hidden">
                 <img src="https://placehold.co/800x600/cccccc/333333?text=Takoyaki+Art" alt="ソースたこ焼き" className="object-cover w-full h-full grayscale-[50%] group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105" />
               </div>
@@ -141,8 +142,8 @@ export default async function Home() {
                 外はカリッと香ばしく、中はトロッと熱々。<br/>
                 王道の旨味を極限まで追求した、当店の看板メニュー。濃厚な特製ソースが後を引く一品です。
               </p>
-            </div>
-            <div className="group cursor-pointer lg:mt-24">
+            </div></FadeIn>
+            <FadeIn delay={0.3}><div className="group cursor-pointer lg:mt-24">
               <div className="relative aspect-[4/3] bg-gray-100 mb-6 overflow-hidden">
                 <img src="https://placehold.co/800x600/cccccc/333333?text=Akashiyaki+Art" alt="明石焼き" className="object-cover w-full h-full grayscale-[50%] group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105" />
               </div>
@@ -154,7 +155,7 @@ export default async function Home() {
                 ふわふわの生地に、出汁の香りが上品に広がります。<br/>
                 温かい特製のお出汁にくぐらせてお召し上がりください。優しく奥深い味わいです。
               </p>
-            </div>
+            </div></FadeIn>
           </div>
         </div>
       </section>
@@ -165,7 +166,7 @@ export default async function Home() {
             <h2 className="font-en text-3xl tracking-[0.3em] text-[#111111] font-bold">INFORMATION</h2>
             <div className="w-12 h-px bg-[#C5A059] mx-auto mt-4"></div>
           </div>
-          <div className="border border-gray-300 p-8 lg:p-12 relative bg-white/60 backdrop-blur-sm">
+          <FadeIn delay={0.2} className="border border-gray-300 p-8 lg:p-12 relative bg-white/60 backdrop-blur-sm">
             <div className="grid md:grid-cols-2 gap-12">
               <div>
                 <h3 className="text-[#C5A059] text-sm tracking-widest mb-4 font-bold">OPENING HOURS</h3>
