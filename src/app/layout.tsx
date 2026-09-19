@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Montserrat, Noto_Serif_JP, Noto_Sans_JP } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"] });
+const montserrat = Montserrat({ subsets: ["latin"], variable: "--font-montserrat", display: "swap" });
+const notoSerifJP = Noto_Serif_JP({ subsets: ["latin"], weight: ["300", "400", "700"], variable: "--font-noto-serif-jp", display: "swap" });
+const notoSansJP = Noto_Sans_JP({ subsets: ["latin"], weight: ["300", "400", "700"], variable: "--font-noto-sans-jp", display: "swap" });
 
 export const metadata: Metadata = {
   title: "グランメゾン細谷 | GRAND MAISON HOSOYA",
@@ -15,8 +17,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ja">
-      <body className={inter.className}>
+    <html lang="ja" className={`${montserrat.variable} ${notoSerifJP.variable} ${notoSansJP.variable}`}>
+      <body className="font-sans antialiased">
         {children}
       </body>
     </html>
