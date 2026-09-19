@@ -15,7 +15,7 @@ export default function DashboardPage() {
     async function loadData() {
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) {
-        router.push("/login");
+        router.push("/coupon/login");
         return;
       }
       
@@ -36,7 +36,7 @@ export default function DashboardPage() {
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
-    router.push("/login");
+    router.push("/coupon/login");
   };
 
   const getCouponUrl = (id: string) => {

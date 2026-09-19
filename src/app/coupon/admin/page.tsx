@@ -12,6 +12,11 @@ export default function AdminPage() {
   const [loading, setLoading] = useState(true);
   const [isIssuing, setIsIssuing] = useState<string | null>(null);
   
+  const [newsList, setNewsList] = useState<any[]>([]);
+  const [newsTitle, setNewsTitle] = useState("");
+  const [newsContent, setNewsContent] = useState("");
+  const [isSubmittingNews, setIsSubmittingNews] = useState(false);
+  
   // State for expanded management panel
   const [expandedUserId, setExpandedUserId] = useState<string | null>(null);
   const [issueAmount, setIssueAmount] = useState<number>(50);
@@ -20,31 +25,68 @@ export default function AdminPage() {
     async function loadData() {
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) {
-        router.push("/login");
+        router.push("/coupon/login");
         return;
       }
       
       const { data: adminProfile } = await supabase.from("profiles").select("role").eq("id", user.id).single();
       if (adminProfile?.role !== "admin") {
-        router.push("/dashboard");
+        router.push("/coupon/dashboard");
         return;
       }
 
-      const [profilesRes, couponsRes] = await Promise.all([
+      const [profilesRes, couponsRes, newsRes] = await Promise.all([
         supabase.from("profiles").select("*").eq("role", "classmate").order("student_no", { ascending: true }),
-        supabase.from("coupons").select("*").order("created_at", { ascending: false })
+        supabase.from("coupons").select("*").order("created_at", { ascending: false }),
+        supabase.from("news").select("*").order("created_at", { ascending: false })
       ]);
 
       if (profilesRes.data) setProfiles(profilesRes.data);
       if (couponsRes.data) setCoupons(couponsRes.data);
+      if (newsRes.data) setNewsList(newsRes.data);
       setLoading(false);
     }
     loadData();
   }, [router, supabase]);
 
+  const addNews = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newsTitle || !newsContent) return;
+    setIsSubmittingNews(true);
+    const res = await fetch("/api/admin/news", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ title: newsTitle, content: newsContent })
+    });
+    if (res.ok) {
+      setNewsTitle("");
+      setNewsContent("");
+      const newsRes = await supabase.from("news").select("*").order("created_at", { ascending: false });
+      if (newsRes.data) setNewsList(newsRes.data);
+      alert("ニュースを投稿しました！");
+    } else {
+      alert("ニュースの投稿に失敗しました。");
+    }
+    setIsSubmittingNews(false);
+  };
+
+  const deleteNews = async (id: string) => {
+    if (!confirm("本当にこのニュースを削除しますか？")) return;
+    const res = await fetch("/api/admin/news", {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id })
+    });
+    if (res.ok) {
+      setNewsList(prev => prev.filter(n => n.id !== id));
+    } else {
+      alert("削除に失敗しました。");
+    }
+  };
+
   const handleLogout = async () => {
     await supabase.auth.signOut();
-    router.push("/login");
+    router.push("/coupon/login");
   };
 
   const issueCoupon = async (userId: string) => {
@@ -195,6 +237,50 @@ export default function AdminPage() {
             利用率
           </div>
           <div className="text-5xl font-black text-blue-500">{usageRate}<span className="text-2xl text-blue-300 ml-2 font-bold">%</span></div>
+        </div>
+      </div>
+
+      
+      {/* ニュース管理パネル */}
+      <div className="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
+        <div className="p-6 border-b border-slate-100 bg-slate-50 flex items-center gap-3">
+          <LayoutDashboard className="w-5 h-5 text-slate-600" />
+          <h2 className="font-bold text-lg text-slate-800">ホームページ ニュース管理</h2>
+        </div>
+        <div className="p-6 flex flex-col md:flex-row gap-8">
+          <form onSubmit={addNews} className="w-full md:w-1/3 flex flex-col gap-4">
+            <div>
+              <label className="block text-sm font-bold text-slate-700 mb-1">タイトル</label>
+              <input type="text" value={newsTitle} onChange={e => setNewsTitle(e.target.value)} className="w-full border border-slate-200 rounded-lg p-2 focus:outline-none focus:border-slate-400" placeholder="〇〇の販売について" required />
+            </div>
+            <div>
+              <label className="block text-sm font-bold text-slate-700 mb-1">内容</label>
+              <textarea value={newsContent} onChange={e => setNewsContent(e.target.value)} className="w-full border border-slate-200 rounded-lg p-2 h-32 focus:outline-none focus:border-slate-400" placeholder="お知らせの内容を入力..." required></textarea>
+            </div>
+            <button type="submit" disabled={isSubmittingNews} className="bg-slate-900 text-white font-bold py-2 rounded-lg hover:bg-slate-800 disabled:opacity-50">投稿する</button>
+          </form>
+          <div className="w-full md:w-2/3 flex flex-col gap-4">
+            <h3 className="font-bold text-slate-700">投稿済みニュース</h3>
+            <div className="flex flex-col gap-3 max-h-64 overflow-y-auto pr-2">
+              {newsList.length === 0 && <div className="text-slate-500 text-sm">ニュースがありません。</div>}
+              {newsList.map(news => {
+                const dateObj = new Date(news.created_at);
+                const dateStr = `${dateObj.getFullYear()}.${String(dateObj.getMonth() + 1).padStart(2, '0')}.${String(dateObj.getDate()).padStart(2, '0')}`;
+                return (
+                  <div key={news.id} className="border border-slate-200 p-4 rounded-xl flex justify-between gap-4">
+                    <div>
+                      <h4 className="font-bold text-slate-800">{news.title}</h4>
+                      <p className="text-sm text-slate-600 mt-1 whitespace-pre-wrap">{news.content}</p>
+                      <div className="text-xs text-slate-400 mt-2">{dateStr}</div>
+                    </div>
+                    <button onClick={() => deleteNews(news.id)} className="text-slate-400 hover:text-red-500 self-start p-1" title="削除">
+                      <Trash2 className="w-4 h-4" />
+                    </button>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
         </div>
       </div>
 

@@ -15,18 +15,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "uta1508"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;uta1508&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/uta1508/TakoyakiCoupon.git",
-    "accountId": "0a0137ee-8031-41e4-8ffa-135e5d2f494c"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/uta1508/TakoyakiCoupon.git&quot;,
+    &quot;accountId&quot;: &quot;0a0137ee-8031-41e4-8ffa-135e5d2f494c&quot;
   }
-}]]></component>
+}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 6,
   &quot;fromUser&quot;: false
@@ -44,10 +44,12 @@
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "Node.js.create_users.js.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
     "codeWithMe.voiceChat.enabledByDefault": "false",
     "git-widget-placeholder": "main",
     "javascript.preferred.runtime.type.id": "node",
+    "js.debugger.nextJs.config.created.client": "true",
     "last_opened_file_path": "/Users/ut_mba/開発・共有/TakoyakiCoupon/public",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -64,6 +66,9 @@
     </key>
   </component>
   <component name="RunManager" selected="npm.dev">
+    <configuration name="Next.js: クライアントサイドのデバッグ" type="JavascriptDebugType" uri="http://localhost:3000/">
+      <method v="2" />
+    </configuration>
     <configuration name="create_users.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/create_users.js" working-dir="$PROJECT_DIR$">
       <method v="2" />
     </configuration>
@@ -79,6 +84,7 @@
       <method v="2" />
     </configuration>
     <list>
+      <item itemvalue="JavaScript デバッグ.Next.js: クライアントサイドのデバッグ" />
       <item itemvalue="Node.js.create_users.js" />
       <item itemvalue="npm.dev" />
     </list>
@@ -104,11 +110,23 @@
       <updated>1786102759954</updated>
       <workItem from="1786102763169" duration="502000" />
       <workItem from="1789275821383" duration="4000" />
-      <workItem from="1789275837879" duration="7671000" />
+      <workItem from="1789275837879" duration="8313000" />
+      <workItem from="1789565711364" duration="2576000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>
