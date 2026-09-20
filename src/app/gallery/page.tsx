@@ -6,7 +6,7 @@ import { ArrowLeft } from "lucide-react";
 
 // Server component
 export default async function GalleryPage() {
-  const supabase = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!);
+  const supabase = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!);
   
   const { data: galleryFiles } = await supabase.storage.from("gallery").list();
   
