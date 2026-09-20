@@ -5,7 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="15b2a4cd-0417-4e69-bd6e-ee2c37bd031a" name="変更" comment="">
-      <change beforePath="$PROJECT_DIR$/next.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/next.config.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/coupon/admin/page.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/coupon/dashboard/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/coupon/dashboard/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/coupon/login/page.tsx" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -119,7 +122,7 @@
       <workItem from="1789275821383" duration="4000" />
       <workItem from="1789275837879" duration="8313000" />
       <workItem from="1789565711364" duration="2576000" />
-      <workItem from="1789827566709" duration="3099000" />
+      <workItem from="1789827566709" duration="4949000" />
     </task>
     <servers />
   </component>

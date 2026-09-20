@@ -15,7 +15,7 @@ export default function DashboardPage() {
     async function loadData() {
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) {
-        router.push("/coupon/login");
+        router.push("/admin");
         return;
       }
       

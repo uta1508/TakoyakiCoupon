@@ -19,12 +19,20 @@ export default async function Home() {
     .order("created_at", { ascending: false })
     .limit(5);
 
+  const { data: galleryFiles } = await supabase.storage.from("gallery").list();
+  let galleryImages = [];
+  if (galleryFiles) {
+    const files = galleryFiles.filter(f => f.name !== '.emptyFolderPlaceholder');
+    files.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
+    galleryImages = files.slice(0, 6).map(f => supabase.storage.from("gallery").getPublicUrl(f.name).data.publicUrl);
+  }
+
   return (
     <div className="bg-[#F5F5F5] text-[#111111] font-sans font-light selection:bg-[#C5A059] selection:text-white transition-colors duration-500">
       <header className="fixed w-full top-0 z-50 transition-all duration-300 bg-white/90 backdrop-blur-md shadow-sm py-4" id="header">
         <div className="container mx-auto px-6 flex justify-center md:grid md:grid-cols-3 items-center relative">
           <nav className="hidden md:flex gap-10 justify-end pr-8">
-            <a href="#concept" className="text-base font-en font-semibold tracking-widest text-[#111111] hover:text-[#C5A059] uppercase transition-colors">Concept</a>
+            <a href="/gallery" className="text-base font-en font-semibold tracking-widest text-[#111111] hover:text-[#C5A059] uppercase transition-colors">Gallery</a>
             <a href="#news" className="text-base font-en font-semibold tracking-widest text-[#111111] hover:text-[#C5A059] uppercase transition-colors">News</a>
           </nav>
           <div className="flex justify-center">
@@ -163,6 +171,31 @@ export default async function Home() {
               </p>
             </div></FadeIn>
           </div>
+        </div>
+      </section>
+
+            <section id="gallery" className="py-24 relative bg-white">
+        <div className="container mx-auto px-6 max-w-5xl">
+          <FadeIn className="text-center mb-16">
+            <h2 className="font-en text-3xl tracking-[0.3em] text-[#111111] font-bold">GALLERY</h2>
+            <div className="w-12 h-px bg-[#C5A059] mx-auto mt-4"></div>
+          </FadeIn>
+          
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 lg:gap-6 mb-12">
+            {galleryImages.length > 0 ? galleryImages.map((url, i) => (
+              <FadeIn key={i} delay={0.1 * i} className="aspect-square relative overflow-hidden bg-gray-100 cursor-pointer group">
+                <img src={url} alt="Gallery" className="w-full h-full object-cover grayscale-[30%] group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105" />
+              </FadeIn>
+            )) : (
+              <div className="col-span-full text-center py-12 text-gray-400">NO PHOTOS YET</div>
+            )}
+          </div>
+          
+          <FadeIn delay={0.4} className="text-center">
+            <a href="/gallery" className="inline-block border border-[#111111] text-[#111111] px-12 py-4 text-sm font-en tracking-widest hover:bg-[#111111] hover:text-white transition-colors duration-300">
+              VIEW ALL
+            </a>
+          </FadeIn>
         </div>
       </section>
 

@@ -2,7 +2,7 @@
 import React, { useEffect, useState, Fragment } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { useRouter } from "next/navigation";
-import { LogOut, Plus, Users, LayoutDashboard, Ticket, CheckCircle, PieChart, Trash2, ChevronDown, ChevronUp } from "lucide-react";
+import { LogOut, Plus, Users, LayoutDashboard, Ticket, CheckCircle, PieChart, Trash2, ChevronDown, ChevronUp, Image as ImageIcon } from "lucide-react";
 
 export default function AdminPage() {
   const supabase = createClient();
@@ -17,6 +17,9 @@ export default function AdminPage() {
   const [newsContent, setNewsContent] = useState("");
   const [isSubmittingNews, setIsSubmittingNews] = useState(false);
   
+  const [galleryList, setGalleryList] = useState<any[]>([]);
+  const [isUploadingGallery, setIsUploadingGallery] = useState(false);
+  
   // State for expanded management panel
   const [expandedUserId, setExpandedUserId] = useState<string | null>(null);
   const [issueAmount, setIssueAmount] = useState<number>(50);
@@ -25,7 +28,7 @@ export default function AdminPage() {
     async function loadData() {
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) {
-        router.push("/coupon/login");
+        router.push("/admin");
         return;
       }
       
@@ -35,15 +38,23 @@ export default function AdminPage() {
         return;
       }
 
-      const [profilesRes, couponsRes, newsRes] = await Promise.all([
+      const [profilesRes, couponsRes, newsRes, galleryRes] = await Promise.all([
         supabase.from("profiles").select("*").eq("role", "classmate").order("student_no", { ascending: true }),
         supabase.from("coupons").select("*").order("created_at", { ascending: false }),
-        supabase.from("news").select("*").order("created_at", { ascending: false })
+        supabase.from("news").select("*").order("created_at", { ascending: false }),
+        supabase.storage.from("gallery").list()
       ]);
 
       if (profilesRes.data) setProfiles(profilesRes.data);
       if (couponsRes.data) setCoupons(couponsRes.data);
       if (newsRes.data) setNewsList(newsRes.data);
+      if (galleryRes.data) {
+        // filter out placeholder or empty folders
+        const files = galleryRes.data.filter(f => f.name !== '.emptyFolderPlaceholder');
+        // sort by created_at desc
+        files.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
+        setGalleryList(files);
+      }
       setLoading(false);
     }
     loadData();
@@ -68,6 +79,47 @@ export default function AdminPage() {
       alert("ニュースの投稿に失敗しました。");
     }
     setIsSubmittingNews(false);
+  };
+
+  const uploadGallery = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files || e.target.files.length === 0) return;
+    setIsUploadingGallery(true);
+    
+    const file = e.target.files[0];
+    const formData = new FormData();
+    formData.append("file", file);
+    
+    const res = await fetch("/api/admin/gallery", {
+      method: "POST",
+      body: formData
+    });
+    
+    if (res.ok) {
+      const galleryRes = await supabase.storage.from("gallery").list();
+      if (galleryRes.data) {
+        const files = galleryRes.data.filter(f => f.name !== '.emptyFolderPlaceholder');
+        files.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
+        setGalleryList(files);
+      }
+      alert("画像をアップロードしました！");
+    } else {
+      alert("アップロードに失敗しました。バケットが存在するか確認してください。");
+    }
+    setIsUploadingGallery(false);
+  };
+
+  const deleteGallery = async (filename: string) => {
+    if (!confirm("本当にこの画像を削除しますか？")) return;
+    const res = await fetch("/api/admin/gallery", {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ filename })
+    });
+    if (res.ok) {
+      setGalleryList(prev => prev.filter(f => f.name !== filename));
+    } else {
+      alert("削除に失敗しました。");
+    }
   };
 
   const deleteNews = async (id: string) => {
@@ -283,6 +335,46 @@ export default function AdminPage() {
           </div>
         </div>
       </div>
+
+      {/* ギャラリー管理パネル */}
+      <div className="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
+        <div className="p-6 border-b border-slate-100 bg-slate-50 flex items-center gap-3">
+          <ImageIcon className="w-5 h-5 text-slate-600" />
+          <h2 className="font-bold text-lg text-slate-800">ホームページ ギャラリー管理</h2>
+        </div>
+        <div className="p-6">
+          <div className="mb-6">
+            <label className="inline-flex items-center gap-2 px-4 py-2 bg-slate-900 text-white rounded-lg cursor-pointer hover:bg-slate-800 transition-colors font-bold shadow-sm">
+              <Plus className="w-4 h-4" />
+              <span>{isUploadingGallery ? "アップロード中..." : "画像を追加"}</span>
+              <input type="file" className="hidden" accept="image/*" onChange={uploadGallery} disabled={isUploadingGallery} />
+            </label>
+          </div>
+          
+          {galleryList.length === 0 ? (
+            <div className="text-slate-500 text-sm">画像がありません。</div>
+          ) : (
+            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+              {galleryList.map(img => {
+                const publicUrl = supabase.storage.from("gallery").getPublicUrl(img.name).data.publicUrl;
+                return (
+                  <div key={img.name} className="relative group aspect-square rounded-xl overflow-hidden bg-slate-100 border border-slate-200">
+                    <img src={publicUrl} alt="Gallery image" className="w-full h-full object-cover" />
+                    <button 
+                      onClick={() => deleteGallery(img.name)}
+                      className="absolute top-2 right-2 p-1.5 bg-white/90 text-red-500 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity shadow-sm"
+                      title="削除"
+                    >
+                      <Trash2 className="w-4 h-4" />
+                    </button>
+                  </div>
+                );
+              })}
+            </div>
+          )}
+        </div>
+      </div>
+
 
       {/* クラスメイト一覧 */}
       <div className="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">

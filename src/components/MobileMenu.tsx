@@ -58,14 +58,14 @@ export function MobileMenu() {
               {/* Menu Links */}
               <nav className="relative z-10 flex flex-col gap-10 text-center">
                 <motion.a 
-                  href="#concept" 
+                  href="/gallery" 
                   onClick={() => setIsOpen(false)}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.1, duration: 0.5 }}
                   className="text-3xl font-en font-semibold tracking-widest text-[#111111]"
                 >
-                  CONCEPT
+                  GALLERY
                 </motion.a>
                 <motion.a 
                   href="#news" 
