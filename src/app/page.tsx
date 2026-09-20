@@ -28,7 +28,7 @@ export default async function Home() {
           </nav>
           <div className="flex justify-center">
             <a href="#" className="relative w-56 h-16 md:w-72 md:h-20 block">
-              <Image src="/logo.png" alt="GRAND MAISON HOSOYA" fill className="object-contain object-center" />
+              <Image src="/logo.png" alt="GRAND MAISON HOSOYA" fill sizes="(max-width: 768px) 224px, 288px" priority className="object-contain object-center" />
             </a>
           </div>
           <nav className="hidden md:flex gap-10 justify-start pl-8">

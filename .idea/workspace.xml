@@ -5,11 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="15b2a4cd-0417-4e69-bd6e-ee2c37bd031a" name="変更" comment="">
-      <change beforePath="$PROJECT_DIR$/public/file.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/globe.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/next.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/vercel.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/window.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/next.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/next.config.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,7 +59,8 @@
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "npm.dev.executor": "Run",
-    "settings.editor.selected.configurable": "preferences.lookFeel"
+    "settings.editor.selected.configurable": "preferences.lookFeel",
+    "ts.external.directory.path": "/Users/ut_mba/開発・共有/TakoyakiCoupon/node_modules/typescript/lib"
   }
 }]]></component>
   <component name="RecentsManager">
@@ -71,6 +68,7 @@
       <recent name="$PROJECT_DIR$/public" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/public" />
       <recent name="$PROJECT_DIR$/public/movie" />
     </key>
   </component>
@@ -121,7 +119,7 @@
       <workItem from="1789275821383" duration="4000" />
       <workItem from="1789275837879" duration="8313000" />
       <workItem from="1789565711364" duration="2576000" />
-      <workItem from="1789827566709" duration="2394000" />
+      <workItem from="1789827566709" duration="3099000" />
     </task>
     <servers />
   </component>
