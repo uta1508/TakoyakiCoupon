@@ -219,6 +219,28 @@ export default function AdminPage() {
     }
   };
 
+  const resetPassword = async (userId: string, name: string) => {
+    const newPassword = prompt(`${name} さんの新しいパスワードを入力してください（6文字以上）`);
+    if (!newPassword) return;
+    if (newPassword.length < 6) {
+      alert("パスワードは6文字以上で入力してください。");
+      return;
+    }
+
+    const res = await fetch("/api/admin/users", {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id: userId, password: newPassword })
+    });
+
+    if (res.ok) {
+      alert(`${name} さんのパスワードを「${newPassword}」に変更しました！\n忘れないように本人にお伝えください。`);
+    } else {
+      const errorData = await res.json().catch(() => ({ error: '不明なエラー' }));
+      alert(`パスワードの変更に失敗しました。\n理由: ${errorData.error}`);
+    }
+  };
+
   const deleteUser = async (userId: string, name: string) => {
     if (!confirm(`本当に ${name} さんのアカウントを完全に削除しますか？\n（※元には戻せません）`)) return;
     
@@ -545,8 +567,14 @@ export default function AdminPage() {
                                 )}
                               </div>
                               
-                              {/* アカウント削除エリア */}
-                              <div className="flex justify-end pt-4 border-t border-slate-200 mt-2">
+                              {/* 危険な操作エリア */}
+                              <div className="flex justify-between items-center pt-4 border-t border-slate-200 mt-2">
+                                <button 
+                                  onClick={() => resetPassword(profile.id, profile.name)}
+                                  className="text-sm font-bold text-slate-600 hover:bg-slate-100 border border-slate-200 px-4 py-2 rounded-lg transition-colors"
+                                >
+                                  パスワードを変更する
+                                </button>
                                 <button 
                                   onClick={() => deleteUser(profile.id, profile.name)}
                                   className="text-sm font-bold text-red-500 hover:bg-red-50 px-4 py-2 rounded-lg transition-colors"

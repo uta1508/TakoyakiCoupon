@@ -52,8 +52,14 @@ export async function POST(request: Request) {
 // ユーザーの更新（名前や出席番号など）
 export async function PATCH(request: Request) {
   try {
-    const { id, name, student_no } = await request.json();
+    const { id, name, student_no, password } = await request.json();
     
+    if (password) {
+      const { error } = await supabaseAdmin.auth.admin.updateUserById(id, { password });
+      if (error) throw error;
+      return NextResponse.json({ success: true });
+    }
+
     // Authのメタデータも一応更新しておく
     await supabaseAdmin.auth.admin.updateUserById(id, { user_metadata: { name } });
 
