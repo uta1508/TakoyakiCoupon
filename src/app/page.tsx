@@ -33,7 +33,7 @@ export default async function Home() {
           </div>
           <nav className="hidden md:flex gap-10 justify-start pl-8">
             <a href="#menu" className="text-base font-en font-semibold tracking-widest text-[#111111] hover:text-[#C5A059] uppercase transition-colors">Menu</a>
-            <a href="#access" className="text-base font-en font-semibold tracking-widest text-[#111111] hover:text-[#C5A059] uppercase transition-colors">Access</a>
+            <a href="https://www.nichidai3.ed.jp/sankousai2026/access/" target="_blank" rel="noopener noreferrer" className="text-base font-en font-semibold tracking-widest text-[#111111] hover:text-[#C5A059] uppercase transition-colors">Access</a>
           </nav>
         </div>
       </header>
@@ -118,7 +118,14 @@ export default async function Home() {
         <div className="container mx-auto px-6 max-w-6xl">
           <FadeIn className="text-center mb-16 lg:mb-24">
             <h2 className="font-en text-3xl tracking-[0.3em] text-[#111111] font-bold">MENU</h2>
-            <div className="w-12 h-px bg-[#C5A059] mx-auto mt-4"></div>
+            <div className="w-12 h-px bg-[#C5A059] mx-auto mt-4 mb-8"></div>
+            <div className="inline-block border border-[#C5A059]/30 bg-white px-8 py-4 shadow-sm">
+              <p className="text-sm text-gray-600 mb-2 tracking-widest">全品共通価格</p>
+              <div className="flex justify-center gap-8 font-en">
+                <div><span className="text-sm text-gray-500 tracking-widest mr-2">4個入</span><span className="text-2xl text-[#C5A059] font-bold">¥200</span></div>
+                <div><span className="text-sm text-gray-500 tracking-widest mr-2">6個入</span><span className="text-2xl text-[#C5A059] font-bold">¥300</span></div>
+              </div>
+            </div>
           </FadeIn>
           <div className="grid md:grid-cols-2 gap-16 lg:gap-24">
             <FadeIn delay={0.1}><div className="group cursor-pointer">
@@ -130,7 +137,7 @@ export default async function Home() {
               </div>
               <div className="flex justify-between items-baseline mb-3">
                 <h3 className="font-serif text-2xl text-[#111111] font-bold">ソースたこ焼き</h3>
-                <span className="text-xl text-[#C5A059] font-en tracking-widest font-bold">¥500</span>
+                
               </div>
               <p className="text-sm text-gray-600 leading-relaxed">
                 外はカリッと香ばしく、中はトロッと熱々。<br/>
@@ -146,7 +153,7 @@ export default async function Home() {
               </div>
               <div className="flex justify-between items-baseline mb-3">
                 <h3 className="font-serif text-2xl text-[#111111] font-bold">明石焼き</h3>
-                <span className="text-xl text-[#C5A059] font-en tracking-widest font-bold">¥600</span>
+                
               </div>
               <p className="text-sm text-gray-600 leading-relaxed">
                 ふわふわの生地に、出汁の香りが上品に広がります。<br/>
@@ -183,18 +190,14 @@ export default async function Home() {
               </div>
               <div>
                 <h3 className="text-[#C5A059] text-sm tracking-widest mb-4 font-bold">LOCATION</h3>
-                <p className="font-serif text-lg text-[#111111] mb-2 font-bold">令和8年度 〇〇高校 文化祭</p>
+                <p className="font-serif text-lg text-[#111111] mb-2 font-bold">日本大学第三高等学校 三黌祭</p>
                 <div className="flex items-end gap-3 mb-6">
-                  <span className="text-3xl text-[#C5A059] font-bold">3</span><span className="text-gray-800">階</span>
-                  <span className="text-3xl text-[#C5A059] font-bold">3-A</span><span className="text-gray-800">教室</span>
+                  <span className="text-2xl text-[#C5A059] font-bold">音楽室</span><span className="text-gray-800 font-bold">前</span>
                 </div>
                 <div className="text-sm text-gray-600 leading-relaxed mb-6">
-                  西階段を上がって右奥の教室です。<br/>
-                  黒と金の装飾を目印にお越しください。
+                  受付から階段を上がって屋台一番奥です。
                 </div>
-                <a href="https://www.nichidai3.ed.jp/sankousai2026/access/" target="_blank" rel="noopener noreferrer" className="inline-block bg-[#111111] text-white px-8 py-3 text-sm font-en tracking-widest hover:bg-[#C5A059] transition-colors duration-300">
-                  ACCESS MAP
-                </a>
+
               </div>
             </div>
           </FadeIn>
