@@ -17,10 +17,10 @@ export function MobileMenu() {
     <div className="md:hidden">
       {/* Hamburger Button */}
       <button 
-        onClick={() => setIsOpen(true)}
+        onClick={() => setIsOpen(!isOpen)}
         className="absolute top-1/2 -translate-y-1/2 right-6 z-[60] p-2 text-[#111111]"
       >
-        <Menu size={28} />
+        {isOpen ? <X size={32} /> : <Menu size={28} />}
       </button>
 
       {/* Full Screen Menu via Portal */}
@@ -32,20 +32,14 @@ export function MobileMenu() {
               animate={{ clipPath: "circle(150% at calc(100% - 40px) 40px)" }}
               exit={{ clipPath: "circle(0% at calc(100% - 40px) 40px)" }}
               transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-              className="fixed inset-0 z-[100] flex flex-col justify-center items-center"
+              className="fixed inset-0 z-40 flex flex-col justify-center items-center"
             >
               {/* Semi-transparent dark background */}
               <div className="absolute inset-0 bg-black/40 backdrop-blur-md" onClick={() => setIsOpen(false)}></div>
               
               <div className="absolute inset-0 bg-white/80" onClick={() => setIsOpen(false)}></div>
 
-              {/* Close Button */}
-              <button 
-                onClick={() => setIsOpen(false)}
-                className="absolute top-8 right-6 p-2 text-[#111111] z-10"
-              >
-                <X size={32} />
-              </button>
+              
 
               {/* Menu Links */}
               <nav className="relative z-10 flex flex-col gap-10 text-center">
