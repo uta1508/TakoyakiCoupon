@@ -44,7 +44,7 @@ export default async function Home() {
         <HeroVideoBackground />
 
         <div className="relative z-10 container mx-auto px-6 h-full flex flex-col md:flex-row justify-center md:justify-between items-center pt-20">
-          <div className="order-2 md:order-1 mt-12 md:mt-0 w-full md:w-1/2 flex justify-center md:justify-start lg:pl-12">
+          <div className="absolute bottom-12 left-6 md:relative md:bottom-auto md:left-auto order-2 md:order-1 w-full md:w-1/2 flex justify-start lg:pl-12">
             <FadeIn delay={0.8} className="border-l border-[#C5A059] pl-6 py-2 text-left">
               <p className="font-en font-semibold text-[#C5A059] tracking-[0.2em] text-sm mb-2">LIMITED OPEN</p>
               <p className="text-white text-lg tracking-wider font-en font-semibold">2026.09.26 <span className="text-sm mx-1">SAT</span> - 09.27 <span className="text-sm mx-1">SUN</span></p>
@@ -52,11 +52,11 @@ export default async function Home() {
             </FadeIn>
           </div>
           <div className="order-1 md:order-2 w-full md:w-1/2 flex justify-center md:justify-end md:pr-12 lg:pr-24">
-            <div className="flex h-auto gap-4 lg:gap-8 justify-end">
-              <FadeIn delay={0.6}><p className="font-serif text-xl lg:text-2xl text-[#C5A059] leading-loose mt-12 drop-shadow-md" style={{ writingMode: 'vertical-rl', letterSpacing: '0.2em' }}>
+            <div className="flex h-auto gap-4 lg:gap-8 justify-center md:justify-end">
+              <FadeIn delay={0.6} className="[writing-mode:vertical-rl]"><p className="font-serif text-xl lg:text-2xl text-[#C5A059] leading-loose mt-12 drop-shadow-md tracking-[0.2em]">
                 賞味期限、わずか１分。
               </p></FadeIn>
-              <FadeIn delay={0.3}><h2 className="font-serif text-4xl lg:text-6xl text-white leading-[2.5] drop-shadow-lg" style={{ writingMode: 'vertical-rl', letterSpacing: '0.2em' }}>
+              <FadeIn delay={0.3} className="[writing-mode:vertical-rl]"><h2 className="font-serif text-4xl lg:text-6xl text-white leading-[2.5] drop-shadow-lg tracking-[0.2em]">
                 至高の粉もん、<br/>ここに開店。
               </h2></FadeIn>
             </div>
