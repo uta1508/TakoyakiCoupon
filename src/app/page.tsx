@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { createClient } from "@supabase/supabase-js";
 import { FadeIn } from "@/components/FadeIn";
+import { HeroVideoBackground } from "@/components/HeroVideoBackground";
 
 // キャッシュを無効にして常に最新のニュースを取得する
 export const revalidate = 0;
@@ -38,32 +39,22 @@ export default async function Home() {
       </header>
 
       <section className="relative h-screen flex items-center justify-center overflow-hidden bg-[#F8F9FA]">
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          {/* Animated gradient orbs for a luxurious steam/atmosphere effect */}
-          <div className="absolute top-[-10%] left-[-10%] w-[50vw] h-[50vw] max-w-[600px] max-h-[600px] bg-[#C5A059]/15 rounded-full blur-3xl animate-pulse" style={{ animationDuration: '8s' }}></div>
-          <div className="absolute bottom-[-10%] right-[-10%] w-[60vw] h-[60vw] max-w-[800px] max-h-[800px] bg-[#111111]/5 rounded-full blur-3xl animate-pulse" style={{ animationDuration: '10s', animationDelay: '2s' }}></div>
-          <div className="absolute top-[40%] left-[40%] w-[40vw] h-[40vw] max-w-[500px] max-h-[500px] bg-[#C5A059]/10 rounded-full blur-3xl animate-pulse" style={{ animationDuration: '12s', animationDelay: '4s' }}></div>
-          
-          {/* Subtle noise/texture overlay to add physical depth */}
-          <div className="absolute inset-0 opacity-[0.04] mix-blend-overlay" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.8%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E")' }}></div>
-        </div>
-        
-        <div className="absolute inset-0 bg-gradient-to-b from-white/10 via-white/40 to-[#F5F5F5] pointer-events-none"></div>
+        <HeroVideoBackground />
 
         <div className="relative z-10 container mx-auto px-6 h-full flex flex-col md:flex-row justify-center md:justify-between items-center pt-20">
           <div className="order-2 md:order-1 mt-12 md:mt-0 w-full md:w-1/2 flex justify-center md:justify-start lg:pl-12">
             <FadeIn delay={0.8} className="border-l border-[#C5A059] pl-6 py-2 text-left">
               <p className="font-en font-semibold text-[#C5A059] tracking-[0.2em] text-sm mb-2">LIMITED OPEN</p>
-              <p className="text-[#111111] text-lg tracking-wider font-en font-semibold">2026.09.26 <span className="text-sm mx-1">SAT</span> - 09.27 <span className="text-sm mx-1">SUN</span></p>
-              <p className="text-gray-600 text-sm mt-1">09:00 - 15:00</p>
+              <p className="text-white text-lg tracking-wider font-en font-semibold">2026.09.26 <span className="text-sm mx-1">SAT</span> - 09.27 <span className="text-sm mx-1">SUN</span></p>
+              <p className="text-white/80 text-sm mt-1">09:00 - 15:00</p>
             </FadeIn>
           </div>
           <div className="order-1 md:order-2 w-full md:w-1/2 flex justify-center md:justify-end md:pr-12 lg:pr-24">
             <div className="flex h-auto gap-4 lg:gap-8 justify-end">
-              <FadeIn delay={0.6}><p className="font-serif text-xl lg:text-2xl text-[#C5A059] leading-loose mt-12" style={{ writingMode: 'vertical-rl', letterSpacing: '0.2em' }}>
+              <FadeIn delay={0.6}><p className="font-serif text-xl lg:text-2xl text-[#C5A059] leading-loose mt-12 drop-shadow-md" style={{ writingMode: 'vertical-rl', letterSpacing: '0.2em' }}>
                 賞味期限、わずか１分。
               </p></FadeIn>
-              <FadeIn delay={0.3}><h2 className="font-serif text-4xl lg:text-6xl text-[#111111] leading-[2.5]" style={{ writingMode: 'vertical-rl', letterSpacing: '0.2em' }}>
+              <FadeIn delay={0.3}><h2 className="font-serif text-4xl lg:text-6xl text-white leading-[2.5] drop-shadow-lg" style={{ writingMode: 'vertical-rl', letterSpacing: '0.2em' }}>
                 至高の粉もん、<br/>ここに開店。
               </h2></FadeIn>
             </div>
