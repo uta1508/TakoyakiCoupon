@@ -2,6 +2,7 @@ import Image from "next/image";
 import { createClient } from "@supabase/supabase-js";
 import { FadeIn } from "@/components/FadeIn";
 import { HeroVideoBackground } from "@/components/HeroVideoBackground";
+import { MobileMenu } from "@/components/MobileMenu";
 
 // キャッシュを無効にして常に最新のニュースを取得する
 export const revalidate = 0;
@@ -21,7 +22,7 @@ export default async function Home() {
   return (
     <div className="bg-[#F5F5F5] text-[#111111] font-sans font-light selection:bg-[#C5A059] selection:text-white transition-colors duration-500">
       <header className="fixed w-full top-0 z-50 transition-all duration-300 bg-white/90 backdrop-blur-md shadow-sm py-4" id="header">
-        <div className="container mx-auto px-6 flex justify-center md:grid md:grid-cols-3 items-center">
+        <div className="container mx-auto px-6 flex justify-center md:grid md:grid-cols-3 items-center relative">
           <nav className="hidden md:flex gap-10 justify-end pr-8">
             <a href="#concept" className="text-base font-en font-semibold tracking-widest text-[#111111] hover:text-[#C5A059] uppercase transition-colors">Concept</a>
             <a href="#news" className="text-base font-en font-semibold tracking-widest text-[#111111] hover:text-[#C5A059] uppercase transition-colors">News</a>
@@ -35,6 +36,7 @@ export default async function Home() {
             <a href="#menu" className="text-base font-en font-semibold tracking-widest text-[#111111] hover:text-[#C5A059] uppercase transition-colors">Menu</a>
             <a href="https://www.nichidai3.ed.jp/sankousai2026/access/" target="_blank" rel="noopener noreferrer" className="text-base font-en font-semibold tracking-widest text-[#111111] hover:text-[#C5A059] uppercase transition-colors">Access</a>
           </nav>
+          <MobileMenu />
         </div>
       </header>
 
