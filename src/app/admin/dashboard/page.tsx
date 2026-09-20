@@ -52,7 +52,7 @@ export default function AdminPage() {
         // filter out placeholder or empty folders
         const files = galleryRes.data.filter(f => f.name !== '.emptyFolderPlaceholder');
         // sort by created_at desc
-        files.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
+        files.sort((a, b) => new Date(b.created_at || 0).getTime() - new Date(a.created_at || 0).getTime());
         setGalleryList(files);
       }
       setLoading(false);
@@ -98,7 +98,7 @@ export default function AdminPage() {
       const galleryRes = await supabase.storage.from("gallery").list();
       if (galleryRes.data) {
         const files = galleryRes.data.filter(f => f.name !== '.emptyFolderPlaceholder');
-        files.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
+        files.sort((a, b) => new Date(b.created_at || 0).getTime() - new Date(a.created_at || 0).getTime());
         setGalleryList(files);
       }
       alert("画像をアップロードしました！");

@@ -20,10 +20,10 @@ export default async function Home() {
     .limit(5);
 
   const { data: galleryFiles } = await supabase.storage.from("gallery").list();
-  let galleryImages = [];
+  let galleryImages: string[] = [];
   if (galleryFiles) {
     const files = galleryFiles.filter(f => f.name !== '.emptyFolderPlaceholder');
-    files.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
+    files.sort((a, b) => new Date(b.created_at || 0).getTime() - new Date(a.created_at || 0).getTime());
     galleryImages = files.slice(0, 6).map(f => supabase.storage.from("gallery").getPublicUrl(f.name).data.publicUrl);
   }
 

@@ -13,7 +13,7 @@ export default async function GalleryPage() {
   let galleryImages: string[] = [];
   if (galleryFiles) {
     const files = galleryFiles.filter(f => f.name !== '.emptyFolderPlaceholder');
-    files.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
+    files.sort((a, b) => new Date(b.created_at || 0).getTime() - new Date(a.created_at || 0).getTime());
     galleryImages = files.map(f => supabase.storage.from("gallery").getPublicUrl(f.name).data.publicUrl);
   }
 
