@@ -124,6 +124,9 @@ export default async function Home() {
             <FadeIn delay={0.1}><div className="group cursor-pointer">
               <div className="relative aspect-[4/3] bg-gray-100 mb-6 overflow-hidden">
                 <img src="/sauce_takoyaki.jpg" alt="ソースたこ焼き" className="object-cover w-full h-full grayscale-[50%] group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105" />
+                <div className="absolute bottom-3 right-3 px-3 py-1.5 bg-black/40 backdrop-blur-md text-white/90 text-[10px] tracking-widest rounded shadow-sm">
+                  ※写真は盛り付けのイメージです
+                </div>
               </div>
               <div className="flex justify-between items-baseline mb-3">
                 <h3 className="font-serif text-2xl text-[#111111] font-bold">ソースたこ焼き</h3>
@@ -137,6 +140,9 @@ export default async function Home() {
             <FadeIn delay={0.3}><div className="group cursor-pointer">
               <div className="relative aspect-[4/3] bg-gray-100 mb-6 overflow-hidden">
                 <img src="/akashiyaki.jpg" alt="明石焼き" className="object-cover w-full h-full grayscale-[50%] group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105" />
+                <div className="absolute bottom-3 right-3 px-3 py-1.5 bg-black/40 backdrop-blur-md text-white/90 text-[10px] tracking-widest rounded shadow-sm">
+                  ※写真は盛り付けのイメージです
+                </div>
               </div>
               <div className="flex justify-between items-baseline mb-3">
                 <h3 className="font-serif text-2xl text-[#111111] font-bold">明石焼き</h3>
