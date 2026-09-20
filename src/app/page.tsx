@@ -123,7 +123,7 @@ export default async function Home() {
           <div className="grid md:grid-cols-2 gap-16 lg:gap-24">
             <FadeIn delay={0.1}><div className="group cursor-pointer">
               <div className="relative aspect-[4/3] bg-gray-100 mb-6 overflow-hidden">
-                <img src="https://placehold.co/800x600/cccccc/333333?text=Takoyaki+Art" alt="ソースたこ焼き" className="object-cover w-full h-full grayscale-[50%] group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105" />
+                <img src="/sauce_takoyaki.jpg" alt="ソースたこ焼き" className="object-cover w-full h-full grayscale-[50%] group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105" />
               </div>
               <div className="flex justify-between items-baseline mb-3">
                 <h3 className="font-serif text-2xl text-[#111111] font-bold">ソースたこ焼き</h3>
@@ -134,9 +134,9 @@ export default async function Home() {
                 王道の旨味を極限まで追求した、当店の看板メニュー。濃厚な特製ソースが後を引く一品です。
               </p>
             </div></FadeIn>
-            <FadeIn delay={0.3}><div className="group cursor-pointer lg:mt-24">
+            <FadeIn delay={0.3}><div className="group cursor-pointer">
               <div className="relative aspect-[4/3] bg-gray-100 mb-6 overflow-hidden">
-                <img src="https://placehold.co/800x600/cccccc/333333?text=Akashiyaki+Art" alt="明石焼き" className="object-cover w-full h-full grayscale-[50%] group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105" />
+                <img src="/akashiyaki.jpg" alt="明石焼き" className="object-cover w-full h-full grayscale-[50%] group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105" />
               </div>
               <div className="flex justify-between items-baseline mb-3">
                 <h3 className="font-serif text-2xl text-[#111111] font-bold">明石焼き</h3>
@@ -182,10 +182,13 @@ export default async function Home() {
                   <span className="text-3xl text-[#C5A059] font-bold">3</span><span className="text-gray-800">階</span>
                   <span className="text-3xl text-[#C5A059] font-bold">3-A</span><span className="text-gray-800">教室</span>
                 </div>
-                <p className="text-sm text-gray-600 leading-relaxed">
+                <div className="text-sm text-gray-600 leading-relaxed mb-6">
                   西階段を上がって右奥の教室です。<br/>
                   黒と金の装飾を目印にお越しください。
-                </p>
+                </div>
+                <a href="https://www.nichidai3.ed.jp/sankousai2026/access/" target="_blank" rel="noopener noreferrer" className="inline-block bg-[#111111] text-white px-8 py-3 text-sm font-en tracking-widest hover:bg-[#C5A059] transition-colors duration-300">
+                  ACCESS MAP
+                </a>
               </div>
             </div>
           </FadeIn>
