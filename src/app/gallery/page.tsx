@@ -6,7 +6,7 @@ import { ArrowLeft } from "lucide-react";
 
 // Server component
 export default async function GalleryPage() {
-  const supabase = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!);
+  const supabase = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!);
   
   const { data: galleryFiles } = await supabase.storage.from("gallery").list();
   
@@ -18,7 +18,7 @@ export default async function GalleryPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#F5F5F5] text-[#111111] font-sans">
+    <div className="min-h-screen flex flex-col bg-[#F5F5F5] text-[#111111] font-sans">
       <header className="fixed w-full top-0 z-50 transition-all duration-300 bg-white/90 backdrop-blur-md shadow-sm py-4">
         <div className="container mx-auto px-6 flex justify-between items-center">
           <Link href="/" className="inline-flex items-center gap-2 text-sm font-bold hover:text-[#C5A059] transition-colors">
@@ -31,7 +31,7 @@ export default async function GalleryPage() {
         </div>
       </header>
 
-      <main className="pt-32 pb-24">
+      <main className="pt-32 pb-24 flex-grow">
         <div className="container mx-auto px-6 max-w-6xl">
           <FadeIn className="mb-16">
             <h1 className="font-en text-4xl tracking-[0.3em] text-[#111111] font-bold">GALLERY</h1>
