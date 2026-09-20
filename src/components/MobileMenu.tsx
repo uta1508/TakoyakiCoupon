@@ -18,9 +18,23 @@ export function MobileMenu() {
       {/* Hamburger Button */}
       <button 
         onClick={() => setIsOpen(!isOpen)}
-        className="absolute top-1/2 -translate-y-1/2 right-6 z-[60] p-2 text-[#111111]"
+        className="absolute top-1/2 -translate-y-1/2 right-6 z-[60] p-2 w-12 h-12 flex flex-col justify-center items-center"
       >
-        {isOpen ? <X size={32} /> : <Menu size={28} />}
+        <motion.div 
+          animate={isOpen ? { rotate: 45, y: 0 } : { rotate: 0, y: -8 }}
+          transition={{ duration: 0.3 }}
+          className="w-7 h-[2px] bg-[#111111] absolute rounded"
+        />
+        <motion.div 
+          animate={isOpen ? { opacity: 0 } : { opacity: 1 }}
+          transition={{ duration: 0.3 }}
+          className="w-7 h-[2px] bg-[#111111] absolute rounded"
+        />
+        <motion.div 
+          animate={isOpen ? { rotate: -45, y: 0 } : { rotate: 0, y: 8 }}
+          transition={{ duration: 0.3 }}
+          className="w-7 h-[2px] bg-[#111111] absolute rounded"
+        />
       </button>
 
       {/* Full Screen Menu via Portal */}
