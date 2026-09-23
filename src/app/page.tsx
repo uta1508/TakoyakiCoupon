@@ -28,7 +28,7 @@ export default async function Home() {
     if (topFiles.length > 0) {
       const { data: signedUrls } = await supabase.storage.from("gallery").createSignedUrls(topFiles.map(f => f.name), 3600);
       if (signedUrls) {
-        galleryImages = signedUrls.map(s => s.signedUrl);
+        galleryImages = signedUrls.map(s => s.signedUrl).filter((url): url is string => url !== null);
       }
     }
   }
