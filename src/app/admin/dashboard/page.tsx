@@ -41,20 +41,14 @@ export default function AdminPage() {
       const [profilesRes, couponsRes, newsRes, galleryRes] = await Promise.all([
         supabase.from("profiles").select("*").eq("role", "classmate").order("student_no", { ascending: true }),
         supabase.from("coupons").select("*").order("created_at", { ascending: false }),
-        supabase.from("news").select("*").order("created_at", { ascending: false }),
-        supabase.storage.from("gallery").list()
+        fetch("/api/admin/news").then(r => r.json()),
+        fetch("/api/admin/gallery").then(r => r.json())
       ]);
 
       if (profilesRes.data) setProfiles(profilesRes.data);
       if (couponsRes.data) setCoupons(couponsRes.data);
       if (newsRes.data) setNewsList(newsRes.data);
-      if (galleryRes.data) {
-        // filter out placeholder or empty folders
-        const files = galleryRes.data.filter(f => f.name !== '.emptyFolderPlaceholder');
-        // sort by created_at desc
-        files.sort((a, b) => new Date(b.created_at || 0).getTime() - new Date(a.created_at || 0).getTime());
-        setGalleryList(files);
-      }
+      if (galleryRes.data) setGalleryList(galleryRes.data);
       setLoading(false);
     }
     loadData();
@@ -95,11 +89,9 @@ export default function AdminPage() {
     });
     
     if (res.ok) {
-      const galleryRes = await supabase.storage.from("gallery").list();
+      const galleryRes = await fetch("/api/admin/gallery").then(r => r.json());
       if (galleryRes.data) {
-        const files = galleryRes.data.filter(f => f.name !== '.emptyFolderPlaceholder');
-        files.sort((a, b) => new Date(b.created_at || 0).getTime() - new Date(a.created_at || 0).getTime());
-        setGalleryList(files);
+        setGalleryList(galleryRes.data);
       }
       alert("画像をアップロードしました！");
     } else {
@@ -378,10 +370,9 @@ export default function AdminPage() {
           ) : (
             <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
               {galleryList.map(img => {
-                const publicUrl = supabase.storage.from("gallery").getPublicUrl(img.name).data.publicUrl;
                 return (
                   <div key={img.name} className="relative group aspect-square rounded-xl overflow-hidden bg-slate-100 border border-slate-200">
-                    <img src={publicUrl} alt="Gallery image" className="w-full h-full object-cover" />
+                    <img src={img.url} alt="Gallery image" className="w-full h-full object-cover" />
                     <button 
                       onClick={() => deleteGallery(img.name)}
                       className="absolute top-2 right-2 p-1.5 bg-white/90 text-red-500 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity shadow-sm"

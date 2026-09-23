@@ -54,3 +54,26 @@ export async function DELETE(request: Request) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }
+
+export async function GET() {
+  try {
+    const { data, error } = await supabaseAdmin.storage.from("gallery").list();
+    if (error) throw error;
+    
+    const files = data.filter((f: any) => f.name !== '.emptyFolderPlaceholder');
+    files.sort((a: any, b: any) => new Date(b.created_at || 0).getTime() - new Date(a.created_at || 0).getTime());
+    
+    if (files.length > 0) {
+      const { data: signedUrls } = await supabaseAdmin.storage.from("gallery").createSignedUrls(files.map((f: any) => f.name), 3600);
+      if (signedUrls) {
+        files.forEach((f: any, i: number) => {
+          f.url = signedUrls[i].signedUrl;
+        });
+      }
+    }
+    
+    return NextResponse.json({ success: true, data: files });
+  } catch (error: any) {
+    return NextResponse.json({ error: error.message }, { status: 500 });
+  }
+}

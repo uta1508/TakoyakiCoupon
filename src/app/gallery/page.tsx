@@ -11,10 +11,15 @@ export default async function GalleryPage() {
   const { data: galleryFiles } = await supabase.storage.from("gallery").list();
   
   let galleryImages: string[] = [];
-  if (galleryFiles) {
+  if (galleryFiles && galleryFiles.length > 0) {
     const files = galleryFiles.filter(f => f.name !== '.emptyFolderPlaceholder');
     files.sort((a, b) => new Date(b.created_at || 0).getTime() - new Date(a.created_at || 0).getTime());
-    galleryImages = files.map(f => supabase.storage.from("gallery").getPublicUrl(f.name).data.publicUrl);
+    if (files.length > 0) {
+      const { data: signedUrls } = await supabase.storage.from("gallery").createSignedUrls(files.map(f => f.name), 3600);
+      if (signedUrls) {
+        galleryImages = signedUrls.map(s => s.signedUrl);
+      }
+    }
   }
 
   return (
